@@ -1,0 +1,23 @@
+version: '3'
+services:
+  java-sample-app:
+    build: .
+    image: java-sample-app
+    ports:
+      - "8090:8090"    # Expose port 8090 from the container to port 8090 on your host
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: sampledb
+    ports:
+      - "3306:3306"    # Expose port 3306 for MySQL
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
